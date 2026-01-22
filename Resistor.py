@@ -10,6 +10,8 @@ class Resistor:
     #Methods
     def calc_g(self):
         self.g = 1/ self.r
-"""testing class
-R1 = Resistor('R1', 'A', 'B', 5)
-print(R1.name, R1.bus1, R1.bus2, R1.r, R1.g)"""
+
+if __name__ == '__main__':
+    #testing class
+    R1 = Resistor('R1', 'A', 'B', 5)
+    print(R1.name, R1.bus1, R1.bus2, R1.r, R1.g)

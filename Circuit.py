@@ -11,12 +11,13 @@ class Circuit:
         self.buses: Dict[str, Bus] = {}
         self.resistors: Dict[str, Resistor] = {}
         self.loads: Dict[str, Load] = {}
-        self.vsource: Vsource | None = None
+        self.vsource = None
         self.i: float = 0.0
     #Methods
     def add_bus(self, bus: str):
         objbus = Bus(bus)
         self.buses[bus] = objbus
+        return objbus
     def add_resistor_element(self, name: str, bus1: str, bus2: str, r:float):
         resistor = Resistor(name, bus1, bus2, r)
         self.resistors[name] = resistor
@@ -25,7 +26,7 @@ class Circuit:
         load = Load(name, bus1, p, 0.0)
         load.calc_g(v)
         self.loads[name] = load
-    def add_vsource_element(self, name: str, bus1: str, v:float):
+    def add_vsource_element(self, name: str, bus1: Bus, v:float):
         self.vsource = Vsource(name, bus1, v)
     def set_i(self, i: float):
         self.i = i
@@ -34,4 +35,4 @@ class Circuit:
             bus_obj = self.buses[bus]
             print(bus_obj.name, bus_obj.v)
     def print_circuit_current(self):
-        print("The circuit current is", {self.i})
+        print("The circuit current is", self.i)
