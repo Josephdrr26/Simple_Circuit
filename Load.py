@@ -6,6 +6,7 @@ class Load:
         self.p = p
         self.q = q
         self.g = None
+       # self.calc_g(self.v) CHECK
     #Method
     def calc_g(self, v: float):
         self.g = self.p / pow(v,2)
