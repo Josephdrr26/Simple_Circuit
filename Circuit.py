@@ -1,5 +1,5 @@
 from typing import Dict
-from Bus import Bus
+from bus import Bus
 from Load import Load
 from Vsource import Vsource
 from Resistor import Resistor
@@ -18,13 +18,20 @@ class Circuit:
         objbus = Bus(bus)
         self.buses[bus] = objbus
         return objbus
-    def add_resistor_element(self, name: str, bus1: str, bus2: str, r:float):
+    def add_resistor_element(self, name: str, bus1_name: str, bus2_name: str, r:float):
+        try:
+            bus1 = self.buses[bus1_name]
+            bus2 = self.buses[bus2_name]
+        except KeyError as e:
+            raise ValueError(f"Bus '{e.args[0]}' does not exist in the circuit")
+
         resistor = Resistor(name, bus1, bus2, r)
         self.resistors[name] = resistor
-    def add_load_element(self, name: str, bus1: str, p: float, v:float):
+
+    def add_load_element(self, name: str, bus1_name: str, p: float, v:float):
         #Create the load
-        load = Load(name, bus1, p, 0.0)
-        load.calc_g(v)
+        bus1 = self.buses[bus1_name]
+        load = Load(name, bus1, p, 100)
         self.loads[name] = load
     def add_vsource_element(self, name: str, bus1: Bus, v:float):
         self.vsource = Vsource(name, bus1, v)

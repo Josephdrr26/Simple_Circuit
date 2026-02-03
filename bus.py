@@ -1,8 +1,8 @@
 class Bus:
     #Attributes:
-    def __init__(self, name: str, v: float = 0.0):
+    def __init__(self, name: str):
         self.name = name
-        self.v = v
+        self.v = 0.0
     #Methods:
     def set_bus_v(self, bus_v: float):
         self.v = bus_v

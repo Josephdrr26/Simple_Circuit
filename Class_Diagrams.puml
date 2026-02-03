@@ -1,0 +1,68 @@
+@startuml
+
+class Solution {
+  +circuit : Circuit
+  +do_power_flow()
+}
+
+class Circuit {
+  +name : string
+  +buses : dict[string, Bus]
+  +resistors : list[Resistor]
+  +loads : dict[string, Loads]
+  +vsource : VSource
+
+  +add_bus(bus)
+  +add_resistor_element(name: string, bus1: string, bus2: string, r: float)
+  +add_load_element(name: string, bus1: string, p: float, v: float)
+  +add_vsource_element(name: string, bus1: string, v: float)
+  +set_i(i: float)
+  +print_nodal_voltage()
+  +print_circuit_current()
+}
+
+class Resistor {
+  +name : string
+  +bus1 : string
+  +bus2 : string
+  +r : float
+  +g : float
+  +calc_g()
+}
+
+class Load {
+  +name : string
+  +bus1 : string
+  +p : float
+  +q : float
+  +v : float
+  +r : float
+  +g : float
+  +calc_g()
+}
+
+class VSource {
+  +name : string
+  +bus1 : string
+  +v : float
+}
+
+class Bus {
+  +name : string
+  +v : float
+  +set_bus_v(bus_v: float)
+}
+
+'========================
+' Connections (match diagram)
+'========================
+
+Solution "1" o-- "1" Circuit : contains
+
+Circuit "1" o-- "many" Resistor : contains
+Circuit "1" o-- "many" Load : contains
+Circuit "1" o-- "1" VSource : contains
+Circuit "1" o-- "many" Bus : contains
+
+@enduml
+

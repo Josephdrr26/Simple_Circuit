@@ -1,15 +1,16 @@
+from bus import Bus
 class Load:
     #Attributes
-    def __init__(self, name: str, bus1: str, p: float, q: float, g: float = 0.0):
+    def __init__(self, name: str, bus1: Bus, p: float, vnom: float):
         self.name = name
         self.bus1 = bus1
         self.p = p
-        self.q = q
-        self.g = None
-       # self.calc_g(self.v) CHECK
+        self.vnom = vnom
+        self.g = self.calc_g()
     #Method
-    def calc_g(self, v: float):
-        self.g = self.p / pow(v,2)
+    def calc_g(self):
+        g = self.p / pow(self.vnom, 2)
+        return g
 
 """Testing Class
 L1 = Load("L1", "B", 50, 0)
